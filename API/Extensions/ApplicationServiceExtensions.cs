@@ -1,4 +1,6 @@
 
+using Core.Interfaces;
+using Infrastructure;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,6 +24,8 @@ namespace API.Extensions
             // CORS
             //services.AddCors();
             // custom services
+            // creation du PRODUCTREPOSITORY utilisable pour le controleur
+            services.AddScoped<IProductRepository, ProductRepository>();
             
             return services;
         }
