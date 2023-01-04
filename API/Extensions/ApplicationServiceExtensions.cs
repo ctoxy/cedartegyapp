@@ -3,7 +3,7 @@ using Core.Interfaces;
 using Infrastructure;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-
+using API.Helpers;
 namespace API.Extensions
 {
     public static class ApplicationServiceExtensions
@@ -24,8 +24,12 @@ namespace API.Extensions
             // CORS
             //services.AddCors();
             // custom services
+            // creation du Generic Repository utilisable pour le controleur pour tout les futur classe
+            services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
             // creation du PRODUCTREPOSITORY utilisable pour le controleur
             services.AddScoped<IProductRepository, ProductRepository>();
+            //utilisation de automapper pour les reponses
+            services.AddAutoMapper(typeof(MappingProfiles));
             
             return services;
         }

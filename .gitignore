@@ -7,7 +7,7 @@ obj
 bin
 appsettings.json
 *.db
-
+wwwroot
 # User-specific files
 *.rsuser
 *.suo

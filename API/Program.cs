@@ -20,6 +20,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+//lecture des fichiers statique tel que image de wwwroot
+app.UseStaticFiles();
 
 app.UseAuthorization();
 
