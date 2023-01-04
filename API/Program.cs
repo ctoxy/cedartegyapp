@@ -1,25 +1,31 @@
 using API.Extensions;
+using API.Middleware;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
 // appel de ApplictionServiceExtension
 builder.Services.AddApplicationServices(builder.Configuration);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+// middleware de gestions des erreur du serveur position avant toute"
+app.UseMiddleware<ExeptionMiddleware>();
+
+//permet accés a swagger en prod et dev
+app.UseSwagger();
+app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
+
+
+
+// place importante pour capter l'ensemble des erreurs passé au serveur avant envoi client
+app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
 app.UseHttpsRedirection();
+
 //lecture des fichiers statique tel que image de wwwroot
 app.UseStaticFiles();
 
@@ -44,4 +50,6 @@ catch (Exception ex)
     logger.LogError(ex,"un soucis durant la migration");   
     
 }
+
+
 app.Run();

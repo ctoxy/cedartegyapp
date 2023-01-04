@@ -4,6 +4,9 @@ using Infrastructure;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using API.Helpers;
+using Microsoft.AspNetCore.Mvc;
+using API.Errors;
+
 namespace API.Extensions
 {
     public static class ApplicationServiceExtensions
@@ -20,6 +23,24 @@ namespace API.Extensions
             services.AddDbContext<StoreContext>(opt =>
             {
                 opt.UseSqlite(config.GetConnectionString("DefaultConnection"));
+            });
+
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.InvalidModelStateResponseFactory = actionContext => 
+                {
+                    var errors = actionContext.ModelState
+                        .Where(e => e.Value.Errors.Count > 0)
+                        .SelectMany(x => x.Value.Errors)
+                        .Select(x => x.ErrorMessage).ToArray();
+                        
+                    var errorResponse = new ApiValidationErrorResponse
+                    {
+                        Errors = errors
+                    };
+
+                    return new BadRequestObjectResult(errorResponse);
+                };
             });
             // CORS
             //services.AddCors();
