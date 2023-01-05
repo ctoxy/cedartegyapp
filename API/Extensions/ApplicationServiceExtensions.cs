@@ -43,7 +43,11 @@ namespace API.Extensions
                 };
             });
             // CORS
-            //services.AddCors();
+            services.AddCors(opt => {
+                opt.AddPolicy("CorsPolicy", policy => {
+                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200")
+                });
+            });
             // custom services
             // creation du Generic Repository utilisable pour le controleur pour tout les futur classe
             services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));

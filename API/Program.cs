@@ -23,7 +23,8 @@ app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
 
 // place importante pour capter l'ensemble des erreurs passé au serveur avant envoi client
 app.UseStatusCodePagesWithReExecute("/errors/{0}");
-
+// position importante ne pas deplacer accorder a la vue angular
+app.UseCors("CorsPolicy");
 app.UseHttpsRedirection();
 
 //lecture des fichiers statique tel que image de wwwroot
