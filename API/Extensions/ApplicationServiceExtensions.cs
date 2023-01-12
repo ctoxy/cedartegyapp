@@ -45,7 +45,7 @@ namespace API.Extensions
             // CORS
             services.AddCors(opt => {
                 opt.AddPolicy("CorsPolicy", policy => {
-                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200")
+                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200");
                 });
             });
             // custom services
@@ -53,6 +53,8 @@ namespace API.Extensions
             services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
             // creation du PRODUCTREPOSITORY utilisable pour le controleur
             services.AddScoped<IProductRepository, ProductRepository>();
+            // creation du AdvRepository utilisable pour le controleur
+            services.AddScoped<IAdvRepository, AdvRepository>();
             //utilisation de automapper pour les reponses
             services.AddAutoMapper(typeof(MappingProfiles));
             

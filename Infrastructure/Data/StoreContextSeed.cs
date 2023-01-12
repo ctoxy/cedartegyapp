@@ -52,6 +52,34 @@ namespace Infrastructure.Data
                     await context.SaveChangesAsync();
                 }
 
+                if(!context.VnRetrofitTypes.Any())
+                {
+                    var vnRetrofitTypesData = 
+                        File.ReadAllText("../Infrastructure/Data/SeedData/VnRetrofitTypes.json");
+                    
+                    var types = JsonSerializer.Deserialize<List<VnRetrofitType>>(vnRetrofitTypesData);
+
+                    foreach (var item in types)
+                    {
+                        context.VnRetrofitTypes.Add(item);
+                    }
+                    await context.SaveChangesAsync();
+                }
+
+                if(!context.Advs.Any())
+                {
+                    var advsData = 
+                        File.ReadAllText("../Infrastructure/Data/SeedData/advs.json");
+                    
+                    var advs = JsonSerializer.Deserialize<List<Adv>>(advsData);
+
+                    foreach (var item in advs)
+                    {
+                        context.Advs.Add(item);
+                    }
+                    await context.SaveChangesAsync();
+                }
+
             }
             catch (Exception ex)
             {
