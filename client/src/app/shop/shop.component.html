@@ -41,10 +41,10 @@
                     [pageSize]="this.shopParams.pageSize">
                 </app-paging-header>
                 
-                <div class="form-inline mt-2 ">
-                    <input (keyup)="onSearch()" #search class="form-control mr-2 mb-1" style="width: 300px;" placeholder="Search" type="text">
-                    <button (click)="onSearch()" class="btn btn-outline-primary me-2">Search</button>
-                    <button (click)="onReset()" class="btn btn-outline-success me-2 ml-2 ">Reset</button>
+                <div class="d-flex form-inline mt-2 ">
+                    <input (keyup)="onSearch()" #search class="form-control me-2" style="width: 300px;" placeholder="Search" type="text">
+                    <button (click)="onSearch()" class="btn btn-outline-primary my-2">Search</button>
+                    <button (click)="onReset()" class="btn btn-outline-success ms-2 my-2 ">Reset</button>
 
                 </div>
             </div>

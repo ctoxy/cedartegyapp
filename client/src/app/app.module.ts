@@ -9,16 +9,24 @@ import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { ShopComponent } from './shop/shop.component';
+
 import { CoreModule } from './_modules/core/core.module';
 import { ProductItemComponent } from './shop/product-item/product-item.component';
+import { HomeComponent } from './home/home.component';
+import { ProductDetailsComponent } from './shop/product-details/product-details.component';
+import { TestErrorComponent } from './_modules/core/test-error/test-error.component';
+import { ShopComponent } from './shop/shop.component';
+import { ErrorInterceptor } from './_modules/core/_interceptors/error.interceptor';
 
 
 @NgModule({
   declarations: [
     AppComponent,    
     ShopComponent,
-    ProductItemComponent
+    ProductItemComponent,
+    HomeComponent,
+    ProductDetailsComponent,
+    TestErrorComponent
     
   ],
   imports: [
@@ -30,7 +38,9 @@ import { ProductItemComponent } from './shop/product-item/product-item.component
     ReactiveFormsModule,
     SharedModule
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

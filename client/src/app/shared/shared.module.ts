@@ -24,7 +24,8 @@ import { PagerComponent } from './components/pager/pager.component';
     PaginationModule.forRoot(),
     TabsModule.forRoot(),
     ToastrModule.forRoot({
-      positionClass:'toast-bottom-right'
+      positionClass:'toast-bottom-right',
+      preventDuplicates:true
     }),
     NgxGalleryModule,
     NgxSpinnerModule.forRoot({
